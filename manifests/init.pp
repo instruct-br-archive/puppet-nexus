@@ -50,7 +50,7 @@ class nexus (
   include nexus::config
 
   Class['nexus::install']
-    -> Class['nexus::service']
-      -> Class['nexus::config']
+    -> Class['nexus::config']
+      -> Class['nexus::service']
 
 }

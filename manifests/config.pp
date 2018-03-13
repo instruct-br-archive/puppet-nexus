@@ -1,21 +1,27 @@
 class nexus::config {
 
+  $nexus_config_dir  = "${nexus::nexus_data_path}/nexus3/etc"
   $nexus_config_file = "${nexus::nexus_data_path}/nexus3/etc/nexus.properties"
 
+  file { $nexus_config_dir:
+    ensure => directory,
+  }
+
   file { $nexus_config_file:
-    ensure =>  present,
+    ensure  => present,
+    content => epp('nexus/nexus.properties.epp', {http_port => $nexus::http_port, listen_address => $nexus::listen_address}),
   }
 
   file_line { 'nexus-application-host':
     path  => $nexus_config_file,
     match => '^application-host',
-    line  => "application-host=${nexus::listen_address}"
+    line  => "application-host=${nexus::listen_address}",
   }
 
   file_line { 'nexus-application-port':
     path  => $nexus_config_file,
     match => '^application-port',
-    line  => "application-port=${nexus::http_port}"
+    line  => "application-port=${nexus::http_port}",
   }
 
   if $nexus::enable_https {
@@ -23,13 +29,13 @@ class nexus::config {
     file_line { 'nexus-application-https-port':
       ensure => present,
       path   => $nexus_config_file,
-      line   => "application-port-ssl=${nexus::https_port}"
+      line   => "application-port-ssl=${nexus::https_port}",
     }
 
-    file_line { 'nexus-application-java-args':
+    file_line { 'nexus-application-args':
       path  => $nexus_config_file,
-      match => '^nexus-java_args',
-      line  => 'nexus-java-args=${jetty.etc}/jetty.xml,${jetty.etc}/jetty-http.xml,${jetty.etc}/jetty-requestlog.xml,${jetty.etc}/jetty-https.xml,${jetty.etc}/jetty-http-redirect-to-https.xml'
+      match => '^nexus-args',
+      line  => 'nexus-args=${jetty.etc}/jetty.xml,${jetty.etc}/jetty-http.xml,${jetty.etc}/jetty-requestlog.xml,${jetty.etc}/jetty-https.xml,${jetty.etc}/jetty-http-redirect-to-https.xml',
     }
 
     file_line { 'nexus-keystore-password':
@@ -41,13 +47,13 @@ class nexus::config {
     file_line { 'nexus-keymanager-password':
       path  => "${nexus::nexus_app_path}/etc/jetty/jetty-https.xml",
       match => '^.*KeyManagerPassword',
-      line  => "    <Set name=\"KeyManagerPassword\">${nexus::https_keystore_password}</Set>"
+      line  => "    <Set name=\"KeyManagerPassword\">${nexus::https_keystore_password}</Set>",
     }
 
     file_line { 'nexus-trutstore-password':
       path  => "${nexus::nexus_app_path}/etc/jetty/jetty-https.xml",
       match => '^.*TrustStorePassword',
-      line  => "    <Set name=\"TrustStorePassword\">${nexus::https_keystore_password}</Set>"
+      line  => "    <Set name=\"TrustStorePassword\">${nexus::https_keystore_password}</Set>",
     }
 
   }

@@ -59,20 +59,22 @@ class nexus::install {
         content => epp('nexus/nexus.systemd.epp', {nexus_path => $nexus::nexus_app_path, nexus_user => $nexus::nexus_user, nexus_group => $nexus::nexus_group}),
       }
     }
-    'Darwin': {
-      file { '/Library/LaunchDaemons/${nexus::service_name}.plist':
-        mode    => '0644',
-        owner   => 'root',
-        group   => 'wheel',
-        content => epp('nexus/com.sonatype.nexus.plist.epp', {nexus_path => $nexus::nexus_app_path}),
-      }
-    }
-    'Windows': {
-      exec { 'Create Nexus Service':
-        command => "nexus.exe /install ${nexus::service_name}",
-        path    => "${nexus::nexus_app_path}/bin",
-      }
-    }
+    # Needs to be tested
+    #
+    # 'Darwin': {
+    #   file { '/Library/LaunchDaemons/${nexus::service_name}.plist':
+    #     mode    => '0644',
+    #     owner   => 'root',
+    #     group   => 'wheel',
+    #     content => epp('nexus/com.sonatype.nexus.plist.epp', {nexus_path => $nexus::nexus_app_path}),
+    #   }
+    # }
+    # 'Windows': {
+    #   exec { 'Create Nexus Service':
+    #     command => "nexus.exe /install ${nexus::service_name}",
+    #     path    => "${nexus::nexus_app_path}/bin",
+    #   }
+    # }
     default: {
       notify { 'OS not supported': }
     }

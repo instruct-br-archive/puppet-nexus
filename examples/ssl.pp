@@ -1,13 +1,13 @@
 ## first generate a certificate
 ## puppet cert generate nexus
 
-# java_ks { 'nexus_keystore_base':
-#   ensure       => latest,
-#   certificate  => '/etc/puppetlabs/puppet/ssl/certs/ca.pem',
-#   target       => "${nexus::nexus_path}/etc/ssl/keystore.jks",
-#   password     => 'puppet',
-#   trustcacerts => true,
-# }
+java_ks { 'nexus_keystore_base':
+  ensure       => latest,
+  certificate  => '/etc/puppetlabs/puppet/ssl/certs/ca.pem',
+  target       => "${nexus::nexus_path}/etc/ssl/keystore.jks",
+  password     => 'puppet',
+  trustcacerts => true,
+}
 
 java_ks { 'nexus_keystore_certs':
   ensure              => latest,
