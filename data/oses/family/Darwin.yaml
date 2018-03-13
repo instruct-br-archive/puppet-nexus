@@ -1,0 +1,6 @@
+---
+nexus::temp_path: '/tmp'
+nexus::install_path: '/opt/nexus'
+nexus::service_name: 'com.sonatype.nexus3'
+nexus::os_ext: 'mac.tgz'
+nexus::service_provider: 'launchd'

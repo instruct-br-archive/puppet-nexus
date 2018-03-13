@@ -1,0 +1,5 @@
+---
+nexus::temp_path: 'C:/temp'
+nexus::install_path: 'C:/nexus'
+nexus::os_ext: 'win64.zip'
+nexus::service_provider: 'windows'

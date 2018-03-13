@@ -1,0 +1,5 @@
+---
+nexus::temp_path: '/tmp'
+nexus::install_path: '/opt/nexus'
+nexus::service_provider: 'systemd'
+nexus::os_ext: 'unix.tar.gz'

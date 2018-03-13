@@ -1,0 +1,47 @@
+{
+  "name": "igorolivei-nexus",
+  "version": "1.0.0",
+  "author": "igorolivei",
+  "summary": "Puppet module to install Sonatype Nexus 3",
+  "license": "Apache-2.0",
+  "source": "https://github.com/igorolivei/puppet-nexus",
+  "project_page": "https://github.com/igorolivei/puppet-nexus",
+  "issues_url": "https://github.com/igorolivei/puppet-nexus/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "8", "9"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.10.0 < 6.0.0"
+    }
+  ],
+  "dependencies": [
+    {
+      "name":"puppetlabs/stdlib"
+    },
+    {
+      "name":"puppetlabs/java"
+    },
+    {
+      "name":"puppetlabs/java_ks"
+    },
+    {
+      "name":"puppet/archive"
+    }
+  ],
+  "pdk-version": "1.2.1",
+  "template-url": "https://github.com/puppetlabs/pdk-module-template",
+  "template-ref": "heads/master-0-g00b18a7"
+}

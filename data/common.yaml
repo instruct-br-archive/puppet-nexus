@@ -1,0 +1,16 @@
+---
+nexus::homedir: '/var/lib/nexus'
+
+nexus::nexus_user: 'nexus'
+nexus::nexus_group: 'nexus'
+nexus::service_name: 'nexus3'
+
+nexus::major_version: '9'
+nexus::minor_version: '0'
+nexus::revision: '01'
+
+
+nexus::http_port: 8081
+nexus::listen_address: '0.0.0.0'
+nexus::enable_https: true
+nexus::https_port: 8082
