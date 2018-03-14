@@ -11,6 +11,5 @@ nexus::revision: '01'
 
 
 nexus::http_port: 8081
+nexus::https_port: 8443
 nexus::listen_address: '0.0.0.0'
-nexus::enable_https: true
-nexus::https_port: 8082

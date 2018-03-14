@@ -5,10 +5,15 @@ class nexus::config {
 
   file { $nexus_config_dir:
     ensure => directory,
+    owner  => $nexus::nexus_user,
+    group  => $nexus::nexus_group,
+    mode   => '0755',
   }
 
   file { $nexus_config_file:
     ensure  => present,
+    owner  => $nexus::nexus_user,
+    group  => $nexus::nexus_group,
     content => epp('nexus/nexus.properties.epp', {http_port => $nexus::http_port, listen_address => $nexus::listen_address}),
   }
 
