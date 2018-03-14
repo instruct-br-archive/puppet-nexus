@@ -38,7 +38,7 @@ Tested only in X86_64 arch.
 Via git
 
     # cd /etc/puppetlabs/code/environment/production/modules
-    # git clone https://github.com/igorolivei/puppet-nexus.git nexus
+    # git clone https://github.com/instruct-br/puppet-nexus.git nexus
 
 ## Usage
 
