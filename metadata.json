@@ -1,12 +1,12 @@
 {
-  "name": "igorolivei-nexus",
+  "name": "instructbr-nexus",
   "version": "1.0.0",
-  "author": "igorolivei",
+  "author": "instructbr",
   "summary": "Puppet module to install Sonatype Nexus 3",
   "license": "Apache-2.0",
-  "source": "https://github.com/igorolivei/puppet-nexus",
-  "project_page": "https://github.com/igorolivei/puppet-nexus",
-  "issues_url": "https://github.com/igorolivei/puppet-nexus/issues",
+  "source": "https://github.com/instruct-br/puppet-nexus",
+  "project_page": "https://github.com/instruct-br/puppet-nexus",
+  "issues_url": "https://github.com/instruct-br/puppet-nexus/issues",
   "operatingsystem_support": [
     {
       "operatingsystem": "Debian",

@@ -202,6 +202,17 @@ Type: String
 
 Password to access the keystore
 
+#### `manage_java`
+
+Type: Boolean
+
+Whether this module will manage Java or not
+
+#### `java_distribution`
+
+Type: String
+
+Java's desired distribution
 
 ### Hiera Keys
 

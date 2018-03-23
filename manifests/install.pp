@@ -1,7 +1,7 @@
 class nexus::install {
 
-  class { 'java':
-    distribution => 'jre',
+  if $nexus::major_version < '1' {
+    fail("This module supports version 3.1 or greater, found: \'$nexus::major_version\'")
   }
 
   group { $nexus::nexus_group:
@@ -15,14 +15,17 @@ class nexus::install {
     shell  => '/bin/bash',
   }
 
+  File {
+    owner   => $nexus::nexus_user,
+    group   => $nexus::nexus_group,
+  }
+
   file { $nexus::temp_path:
     ensure => directory,
   }
 
   file { $nexus::install_path:
     ensure => directory,
-    owner  => $nexus::nexus_user,
-    group  => $nexus::nexus_group,
     mode   => '0755',
   }
 
@@ -38,15 +41,11 @@ class nexus::install {
 
   file { $nexus::nexus_app_path:
     ensure  => directory,
-    owner   => $nexus::nexus_user,
-    group   => $nexus::nexus_group,
     recurse => true,
   }
 
   file { $nexus::nexus_data_path:
     ensure  => directory,
-    owner   => $nexus::nexus_user,
-    group   => $nexus::nexus_group,
     recurse => true,
   }
 
@@ -54,8 +53,6 @@ class nexus::install {
     'Debian', 'RedHat': {
       file { "/etc/systemd/system/${nexus::service_name}.service":
         mode    => '0644',
-        owner   => 'nexus',
-        group   => 'nexus',
         content => epp('nexus/nexus.systemd.epp', {nexus_path => $nexus::nexus_app_path, nexus_user => $nexus::nexus_user, nexus_group => $nexus::nexus_group}),
       }
     }

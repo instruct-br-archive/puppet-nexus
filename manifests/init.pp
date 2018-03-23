@@ -21,6 +21,8 @@
 # @param [Boolean] enable_https Whether to enable HTTPS or not
 # @param [String] https_keystore Path to the keystore.jks
 # @param [String] https_keystore_password Password to access the keystore
+# @param [Boolean] manage_java Whether this module will manage Java or not
+# @param [String] java_distribution Java's desired distribution
 
 class nexus (
   String $nexus_user,
@@ -39,6 +41,8 @@ class nexus (
   Boolean $enable_https           = false,
   String $https_keystore          = '',
   String $https_keystore_password = '',
+  Boolean $manage_java            = true,
+  String $java_distribution       = 'jre'
 ) {
 
   $nexus_version = "nexus-3.${nexus::major_version}.${nexus::minor_version}-${nexus::revision}"
@@ -49,8 +53,12 @@ class nexus (
   include nexus::service
   include nexus::config
 
+  if $nexus::manage_java {
+    include nexus::java
+  }
+
   Class['nexus::install']
     -> Class['nexus::config']
-      -> Class['nexus::service']
+      ~> Class['nexus::service']
 
 }
