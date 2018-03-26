@@ -35,7 +35,7 @@ pipeline {
           updateGitlabCommitStatus(name: 'jenkins-build', state: 'success')
       }
       failure {
-        echo 'postinng failure to GitLab'
+        echo 'posting failure to GitLab'
           updateGitlabCommitStatus(name: 'jenkins-build', state: 'failed')
       }
 
