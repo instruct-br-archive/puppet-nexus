@@ -1,7 +1,8 @@
+# Internal class
 class nexus::install {
 
   if $nexus::major_version < '1' {
-    fail("This module supports version 3.1 or greater, found: \'$nexus::major_version\'")
+    fail("This module supports version 3.1 or greater, found: \'${nexus::major_version}\'")
   }
 
   group { $nexus::nexus_group:
@@ -53,7 +54,11 @@ class nexus::install {
     'Debian', 'RedHat': {
       file { "/etc/systemd/system/${nexus::service_name}.service":
         mode    => '0644',
-        content => epp('nexus/nexus.systemd.epp', {nexus_path => $nexus::nexus_app_path, nexus_user => $nexus::nexus_user, nexus_group => $nexus::nexus_group}),
+        content => epp('nexus/nexus.systemd.epp', {
+          nexus_path  => $nexus::nexus_app_path,
+          nexus_user  => $nexus::nexus_user,
+          nexus_group => $nexus::nexus_group
+        }),
       }
     }
     # Needs to be tested
