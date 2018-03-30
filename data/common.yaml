@@ -1,6 +1,4 @@
 ---
-nexus::homedir: '/var/lib/nexus'
-
 nexus::nexus_user: 'nexus'
 nexus::nexus_group: 'nexus'
 nexus::service_name: 'nexus3'

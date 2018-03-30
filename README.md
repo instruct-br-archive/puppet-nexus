@@ -217,10 +217,9 @@ Java's desired distribution
 ### Hiera Keys
 
 #### Common
-```
----
-nexus::homedir: '/var/lib/nexus'
 
+```yaml
+---
 nexus::nexus_user: 'nexus'
 nexus::nexus_group: 'nexus'
 nexus::service_name: 'nexus3'
