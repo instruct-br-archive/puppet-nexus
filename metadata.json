@@ -39,6 +39,14 @@
     },
     {
       "name":"puppet/archive"
+    },
+    {
+      "name":"crayfishx/ldconfig",
+      "version_requirement": ">= 0.1.0 < 2.0.0"
+    },
+    {
+      "name":"stm/file_capability",
+      "version_requirement": ">= 1.0.1 < 2.0.0"
     }
   ],
   "pdk-version": "1.2.1",

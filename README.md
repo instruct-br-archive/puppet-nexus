@@ -232,6 +232,12 @@ Type: String
 
 Java's desired distribution
 
+#### `use_reserved_ports`
+
+Type: Boolean
+
+Whether reserved ports (80 and 443) should be used. Default to false
+
 ### Hiera Keys
 
 #### Common

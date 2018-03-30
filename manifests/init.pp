@@ -26,6 +26,7 @@
 # @param [String] https_keystore_password Password to access the keystore
 # @param [Boolean] manage_java Whether this module will manage Java or not
 # @param [String] java_distribution Java's desired distribution
+# @param [Boolean] use_reserved_ports Whether reserved ports (80 and 443) should be used. Default to false
 #
 class nexus (
   String $nexus_user,
@@ -47,6 +48,7 @@ class nexus (
   Boolean $enable_https           = false,
   String $https_keystore          = '',
   String $https_keystore_password = '',
+  Boolean $use_reserved_ports     = false,
   Boolean $manage_java            = true,
   String $java_distribution       = 'jre'
 ) {

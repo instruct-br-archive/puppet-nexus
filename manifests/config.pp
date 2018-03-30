@@ -4,6 +4,14 @@ class nexus::config {
   $nexus_config_dir  = "${nexus::nexus_data_path}/nexus3/etc"
   $nexus_config_file = "${nexus::nexus_data_path}/nexus3/etc/nexus.properties"
 
+  if $nexus::use_reserved_ports {
+    $real_http_port  = 80
+    $real_https_port = 443
+  } else {
+    $real_http_port  = $nexus::http_port
+    $real_https_port = $nexus::https_port
+  }
+
   file { $nexus_config_dir:
     ensure => directory,
     owner  => $nexus::nexus_user,
@@ -28,8 +36,8 @@ class nexus::config {
     owner   => $nexus::nexus_user,
     group   => $nexus::nexus_group,
     content => epp('nexus/nexus.properties.epp', {
-      http_port      => $nexus::http_port,
-      https_port     => $nexus::https_port,
+      http_port      => $real_http_port,
+      https_port     => $real_https_port,
       enable_https   => $nexus::enable_https,
       listen_address => $nexus::listen_address,
     }),
