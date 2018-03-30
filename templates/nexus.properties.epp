@@ -1,12 +1,11 @@
 # Jetty section
-# application-port=8081
-# application-host=0.0.0.0
-# nexus-args=${jetty.etc}/jetty.xml,${jetty.etc}/jetty-http.xml,${jetty.etc}/jetty-requestlog.xml
-# nexus-context-path=/
+application-port=<%= $http_port %>
+application-port-ssl=<%= $https_port %>
+application-host=<%= $listen_address %>
 
 # Nexus section
+nexus-args=${jetty.etc}/jetty.xml,${jetty.etc}/jetty-http.xml,${jetty.etc}/jetty-requestlog.xml<% if $enable_https == true { -%> ,${jetty.etc}/jetty-https.xml,${jetty.etc}/jetty-http-redirect-to-https.xml <% } %>
+nexus-context-path=/
 # nexus-edition=nexus-pro-edition
 # nexus-features=\
 #  nexus-pro-feature
-application-port=<%= $http_port %>
-application-host=<%= $listen_address %>
