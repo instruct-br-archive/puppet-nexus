@@ -1,3 +1,4 @@
+# Internal class to manage Nexus service
 class nexus::service {
 
   service { $nexus::service_name:

@@ -1,3 +1,4 @@
+# Internal class to config the Nexus instance
 class nexus::config {
 
   $nexus_config_dir  = "${nexus::nexus_data_path}/nexus3/etc"
@@ -12,8 +13,8 @@ class nexus::config {
 
   file { $nexus_config_file:
     ensure  => present,
-    owner  => $nexus::nexus_user,
-    group  => $nexus::nexus_group,
+    owner   => $nexus::nexus_user,
+    group   => $nexus::nexus_group,
     content => epp('nexus/nexus.properties.epp', {http_port => $nexus::http_port, listen_address => $nexus::listen_address}),
   }
 
@@ -40,14 +41,13 @@ class nexus::config {
     file_line { 'nexus-application-args':
       path  => $nexus_config_file,
       match => '^nexus-args',
-      line  => 'nexus-args=${jetty.etc}/jetty.xml,${jetty.etc}/jetty-http.xml,${jetty.etc}/jetty-requestlog.xml,${jetty.etc}/jetty-https.xml,${jetty.etc}/jetty-http-redirect-to-https.xml',
+      line  => "nexus-args=\${jetty.etc}/jetty.xml,\${jetty.etc}/jetty-http.xml,\${jetty.etc}/jetty-requestlog.xml,\${jetty.etc}/jetty-https.xml,\${jetty.etc}/jetty-http-redirect-to-https.xml",
     }
 
     # augeas nos xml
-
     augeas{ 'nexus-keystore-password':
       incl    => "${nexus::nexus_app_path}/etc/jetty/jetty-https.xml",
-      lens    => "Xml.lns",
+      lens    => 'Xml.lns',
       context => "/files/${nexus::nexus_app_path}/etc/jetty/jetty-https.xml/Configure/New[2]",
       changes => ["set Set[2]/#text ${nexus::https_keystore_password}",
                   "set Set[3]/#text ${nexus::https_keystore_password}",

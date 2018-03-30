@@ -23,7 +23,7 @@
 # @param [String] https_keystore_password Password to access the keystore
 # @param [Boolean] manage_java Whether this module will manage Java or not
 # @param [String] java_distribution Java's desired distribution
-
+#
 class nexus (
   String $nexus_user,
   String $nexus_group,

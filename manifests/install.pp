@@ -1,4 +1,4 @@
-# Internal class
+# Internal class to install Nexus
 class nexus::install {
 
   if $nexus::major_version < '1' {
@@ -17,8 +17,8 @@ class nexus::install {
   }
 
   File {
-    owner   => $nexus::nexus_user,
-    group   => $nexus::nexus_group,
+    owner => $nexus::nexus_user,
+    group => $nexus::nexus_group,
   }
 
   file { $nexus::temp_path:
