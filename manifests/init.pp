@@ -17,6 +17,9 @@
 # @param [String] revision Nexus revision
 # @param [Integer] http_port Port to serve HTTP
 # @param [Integer] https_port Port to serve HTTPS
+# @param [String] java_xms The JVM minimum heap size. Default to '512M'
+# @param [String] java_xmx The JVM maximum heap size. Default to '1200M'
+# @param [String] java_max_direct_mem The JVM maximum direct memory size. Default to '2G'
 # @param [String] listen_address IP address Nexus listen (same for http and https)
 # @param [Boolean] enable_https Whether to enable HTTPS or not
 # @param [String] https_keystore Path to the keystore.jks
@@ -38,6 +41,9 @@ class nexus (
   Integer[1024,65535] $http_port,
   Integer[1024,65535] $https_port,
   String $listen_address,
+  String $java_xms                = '512M',
+  String $java_xmx                = '1200M',
+  String $java_max_direct_mem     = '2G',
   Boolean $enable_https           = false,
   String $https_keystore          = '',
   String $https_keystore_password = '',

@@ -202,6 +202,24 @@ Type: String
 
 Password to access the keystore
 
+#### `java_xms`
+
+Type: String
+
+The JVM minimum heap size. Default to '512M'.
+
+#### `java_xmx`
+
+Type: String
+
+The JVM maximum heap size. Default to '1200M'.
+
+#### `java_max_direct_mem`
+
+Type: String
+
+The JVM maximum direct memory size. Default to '2G'.
+
 #### `manage_java`
 
 Type: Boolean

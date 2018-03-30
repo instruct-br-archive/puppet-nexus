@@ -1,0 +1,16 @@
+-Xms<%= $xms %>
+-Xmx<%= $xmx %>
+-XX:MaxDirectMemorySize=<%= $max_direct_mem %>
+-XX:+UnlockDiagnosticVMOptions
+-XX:+UnsyncloadClass
+-XX:+LogVMOutput
+-XX:LogFile=<%= $work_dir %>/log/jvm.log
+-XX:-OmitStackTraceInFastThrow
+-Djava.net.preferIPv4Stack=true
+-Dkaraf.home=.
+-Dkaraf.base=.
+-Dkaraf.etc=etc/karaf
+-Djava.util.logging.config.file=etc/karaf/java.util.logging.properties
+-Dkaraf.data=<%= $work_dir %>
+-Djava.io.tmpdir=<%= $work_dir %>/tmp
+-Dkaraf.startLocalConsole=false
