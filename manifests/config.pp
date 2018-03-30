@@ -11,6 +11,18 @@ class nexus::config {
     mode   => '0755',
   }
 
+  file { "${nexus::nexus_app_path}/bin/nexus.vmoptions":
+    ensure  => present,
+    owner   => $nexus::nexus_user,
+    group   => $nexus::nexus_group,
+    content => epp('nexus/nexus.vmoptions.epp', {
+      xms            => $nexus::java_xms,
+      xmx            => $nexus::java_xmx,
+      max_direct_mem => $nexus::java_max_direct_mem,
+      work_dir       => $nexus::nexus_data_path,
+    }),
+  }
+
   file { $nexus_config_file:
     ensure  => present,
     owner   => $nexus::nexus_user,
