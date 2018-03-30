@@ -55,6 +55,8 @@ class nexus (
 
   if $nexus::manage_java {
     include nexus::java
+    Class['nexus::java']
+    -> Class['nexus::install']
   }
 
   Class['nexus::install']
