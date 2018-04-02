@@ -46,7 +46,7 @@ class nexus (
   String $java_max_direct_mem     = '2G',
   Boolean $enable_https           = false,
   String $https_keystore          = '',
-  String $https_keystore_password = '',
+  String $https_keystore_password = 'changeme',
   Boolean $manage_java            = true,
   String $java_distribution       = 'jre'
 ) {
