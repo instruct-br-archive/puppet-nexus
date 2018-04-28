@@ -30,6 +30,11 @@ class nexus::install {
     mode   => '0755',
   }
 
+  file { $nexus::data_path:
+    ensure => directory,
+    mode   => '0755',
+  }
+
   archive { "${nexus::temp_path}/nexus-${nexus::os_ext}":
     ensure        => present,
     extract       => true,
@@ -48,6 +53,7 @@ class nexus::install {
   file { $nexus::nexus_data_path:
     ensure  => directory,
     recurse => true,
+    source => "file:///${nexus::install_path}/sonatype-work",
   }
 
   case $facts['os']['family'] {
