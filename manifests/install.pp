@@ -1,8 +1,8 @@
 # Internal class to install Nexus
 class nexus::install {
 
-  if $nexus::major_version < '1' {
-    fail("This module supports version 3.1 or greater, found: \'${nexus::major_version}\'")
+  if "$nexus::major_version.$nexus::minor_version" < '3.1' {
+    fail("This module supports version 3.1 or greater, found: \'${nexus::major_version}.${nexus::minor_version}\'")
   }
 
   group { $nexus::nexus_group:

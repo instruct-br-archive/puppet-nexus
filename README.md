@@ -54,8 +54,9 @@ Via git
 class { 'nexus':
   http_listen_address => '192.168.250.80',
   http_port           => 8080,
-  major_version       => 7,
-  minor_version       => 1,
+  major_version       => 3,
+  minor_version       => 7,
+  release_version     => 1,
   revision            => 02,
 }
 ```
@@ -159,6 +160,12 @@ Nexus's major version
 Type: String
 
 Nexus's minor version
+
+#### `release_version`
+
+Type: String
+
+Nexus's release version
 
 #### `revision`
 
