@@ -38,6 +38,7 @@ class nexus (
   String $os_ext,
   String $major_version,
   String $minor_version,
+  String $release_version,
   String $revision,
   Integer[1024,65535] $http_port,
   Integer[1024,65535] $https_port,
@@ -52,7 +53,7 @@ class nexus (
   String $java_distribution       = 'jre'
 ) {
 
-  $nexus_version = "nexus-3.${nexus::major_version}.${nexus::minor_version}-${nexus::revision}"
+  $nexus_version = "nexus-${nexus::major_version}.${nexus::minor_version}.${nexus::release_version}-${nexus::revision}"
   $nexus_app_path = "${nexus::install_path}/${nexus_version}"
   $nexus_data_path = "${nexus::data_path}/sonatype-work"
 
