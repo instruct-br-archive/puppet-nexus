@@ -25,7 +25,7 @@ class nexus::install {
   file { $nexus::temp_path:
     ensure => directory,
   }
-  
+
   archive { "${nexus::temp_path}/nexus-${nexus::os_ext}":
     ensure        => present,
     extract       => true,
