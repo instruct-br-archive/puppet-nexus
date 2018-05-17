@@ -5,20 +5,16 @@ class nexus::install {
     fail("This module supports version 3.1 or greater, found: \'${nexus::major_version}\'")
   }
 
-  file { $nexus::install_path:
-    ensure => directory,
-    mode   => '0755',
-  }
-
   group { $nexus::nexus_group:
     ensure => present,
   }
 
   user { $nexus::nexus_user:
-    ensure => present,
-    groups => [$nexus::nexus_group, 'root'],
-    home   => $nexus::install_path,
-    shell  => '/bin/bash',
+    ensure     => present,
+    groups     => [$nexus::nexus_group, 'root'],
+    home       => $nexus::install_path,
+    managehome => true,
+    shell      => '/bin/bash',
   }
 
   File {
