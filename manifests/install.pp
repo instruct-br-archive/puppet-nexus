@@ -1,8 +1,8 @@
 # Internal class to install Nexus
 class nexus::install {
 
-  if $nexus::major_version < '1' {
-    fail("This module supports version 3.1 or greater, found: \'${nexus::major_version}\'")
+  if "$nexus::major_version.$nexus::minor_version" < '3.1' {
+    fail("This module supports version 3.1 or greater, found: \'${nexus::major_version}.${nexus::minor_version}\'")
   }
 
   group { $nexus::nexus_group:
@@ -25,7 +25,7 @@ class nexus::install {
   file { $nexus::temp_path:
     ensure => directory,
   }
-
+  
   archive { "${nexus::temp_path}/nexus-${nexus::os_ext}":
     ensure        => present,
     extract       => true,
@@ -44,6 +44,7 @@ class nexus::install {
   file { $nexus::nexus_data_path:
     ensure  => directory,
     recurse => true,
+    source => "file:///${nexus::install_path}/sonatype-work",
   }
 
   case $facts['os']['family'] {
