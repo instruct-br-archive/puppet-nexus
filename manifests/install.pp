@@ -1,7 +1,7 @@
 # Internal class to install Nexus
 class nexus::install {
 
-  if "$nexus::major_version.$nexus::minor_version" < '3.1' {
+  if "${nexus::major_version}.${nexus::minor_version}" < '3.1' {
     fail("This module supports version 3.1 or greater, found: \'${nexus::major_version}.${nexus::minor_version}\'")
   }
 
@@ -10,10 +10,11 @@ class nexus::install {
   }
 
   user { $nexus::nexus_user:
-    ensure => present,
-    groups => [$nexus::nexus_group, 'root'],
-    home   => '/home/nexus',
-    shell  => '/bin/bash',
+    ensure     => present,
+    groups     => [$nexus::nexus_group, 'root'],
+    home       => $nexus::install_path,
+    managehome => true,
+    shell      => '/bin/bash',
   }
 
   File {
@@ -25,14 +26,9 @@ class nexus::install {
     ensure => directory,
   }
 
-  file { $nexus::install_path:
-    ensure => directory,
-    mode   => '0755',
-  }
-
   file { $nexus::data_path:
-    ensure => directory,
-    mode   => '0755',
+      ensure => directory,
+      mode   => '0755',
   }
 
   archive { "${nexus::temp_path}/nexus-${nexus::os_ext}":
