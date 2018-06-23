@@ -6,7 +6,7 @@
     <string>com.sonatype.nexus</string>
     <key>ProgramArguments</key>
     <array>
-        <string><%= $nexus_path %>/bin/nexus</string>
+        <string><%= $path %>/bin/nexus</string>
         <string>start</string>
     </array>
     <key>RunAtLoad</key>
