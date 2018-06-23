@@ -107,13 +107,13 @@ nexus::service (private)
 
 ### Parameters
 
-#### `nexus_user`
+#### `user`
 
 Type: String
 
 User that will execute Nexus and own its directories
 
-#### `nexus_group`
+#### `group`
 
 Type: String
 
@@ -245,8 +245,8 @@ Java's desired distribution
 
 ```yaml
 ---
-nexus::nexus_user: 'nexus'
-nexus::nexus_group: 'nexus'
+nexus::user: 'nexus'
+nexus::group: 'nexus'
 nexus::service_name: 'nexus3'
 
 nexus::major_version: '9'

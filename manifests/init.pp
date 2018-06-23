@@ -5,8 +5,8 @@
 # @example Declaring the class
 #   include nexus
 #
-# @param [String] nexus_user User that will execute Nexus and own its directories
-# @param [String] nexus_group Group for Nexus user
+# @param [String] user User that will execute Nexus and own its directories
+# @param [String] group Group for Nexus user
 # @param [String] temp_path Path where the file will be downloaded before extraction
 # @param [String] install_path Path where the Nexus will be extracted
 # @param [String] service_name Name for Nexus's service
@@ -28,8 +28,8 @@
 # @param [String] java_distribution Java's desired distribution
 #
 class nexus (
-  String $nexus_user,
-  String $nexus_group,
+  String $user,
+  String $group,
   String $temp_path,
   String $install_path,
   String $data_path,
@@ -53,9 +53,9 @@ class nexus (
   String $java_distribution       = 'jre'
 ) {
 
-  $nexus_version = "nexus-${nexus::major_version}.${nexus::minor_version}.${nexus::release_version}-${nexus::revision}"
-  $nexus_app_path = "${nexus::install_path}/${nexus_version}"
-  $nexus_data_path = "${nexus::data_path}/sonatype-work"
+  $version = "nexus-${major_version}.${minor_version}.${release_version}-${revision}"
+  $app_path = "${install_path}/${version}"
+  $work_dir = "${data_path}/sonatype-work"
 
   include nexus::install
   include nexus::service

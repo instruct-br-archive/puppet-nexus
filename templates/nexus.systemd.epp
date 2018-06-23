@@ -4,10 +4,10 @@ After=network.target
 
 [Service]
 Type=forking
-ExecStart=<%= $nexus_path %>/bin/nexus start
-ExecStop=<%= $nexus_path %>/bin/nexus stop
-User=<%= $nexus_user %>
-Group=<%= $nexus_group %>
+ExecStart=<%= $path %>/bin/nexus start
+ExecStop=<%= $path %>/bin/nexus stop
+User=<%= $user %>
+Group=<%= $group %>
 Restart=on-abort
 
 [Install]
