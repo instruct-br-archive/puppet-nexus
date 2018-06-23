@@ -49,7 +49,7 @@ class nexus::install {
   file { $nexus::work_dir:
     ensure  => directory,
     recurse => true,
-    source => "file:///${nexus::install_path}/sonatype-work",
+    source  => "file:///${nexus::install_path}/sonatype-work",
   }
 
   case $facts['os']['family'] {
