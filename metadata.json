@@ -39,6 +39,9 @@
     },
     {
       "name":"puppet/archive"
+    },
+    {
+      "name":"camptocamp/systemd"
     }
   ],
   "pdk-version": "1.2.1",

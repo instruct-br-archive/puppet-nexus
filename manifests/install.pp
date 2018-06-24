@@ -26,9 +26,8 @@ class nexus::install {
     ensure => directory,
   }
 
-  file { $nexus::data_path:
+  file { $nexus::install_path:
     ensure => directory,
-    mode   => '0755',
   }
 
   archive { "${nexus::temp_path}/nexus-${nexus::os_ext}":
@@ -38,6 +37,7 @@ class nexus::install {
     source        => "https://download.sonatype.com/nexus/3/${nexus::version}-${nexus::os_ext}",
     checksum_url  => "https://download.sonatype.com/nexus/3/${nexus::version}-${nexus::os_ext}.sha1",
     checksum_type => 'sha1',
+    creates       => $nexus::app_path,
     cleanup       => true,
   }
 
@@ -46,10 +46,25 @@ class nexus::install {
     recurse => true,
   }
 
-  file { $nexus::work_dir:
-    ensure  => directory,
+  if $facts['nexus_work_dir'] != $nexus::work_dir {
+    file { $nexus::data_path:
+      ensure => directory,
+      mode   => '0755',
+    }
+
+    file { $nexus::work_dir:
+      ensure  => directory,
+      recurse => true,
+      replace => false,
+      source  => "file:///${nexus::install_path}/sonatype-work",
+      before  => File["${nexus::install_path}/sonatype-work"],
+    }
+  }
+
+  file { "${nexus::install_path}/sonatype-work":
+    ensure  => absent,
+    force   => true,
     recurse => true,
-    source  => "file:///${nexus::install_path}/sonatype-work",
   }
 
   case $facts['os']['family'] {
