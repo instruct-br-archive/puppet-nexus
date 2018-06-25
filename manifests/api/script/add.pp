@@ -10,29 +10,33 @@ define nexus::api::script::add (
   Boolean $delete_after_run = false,
 ) {
 
-  exec { "add-script-${script_name}":
-    command  => "curl -v -u ${user}:${password} --header \"Content-Type: application/json\" \"http://${host}:${port}/service/rest/v1/script/\" -d @${path}",
-    provider => 'shell',
-  }
-
-  if $run {
-    nexus::api::script::run { "run-${script_name}":
-      host        => $host,
-      port        => $port,
-      script_name => $script_name,
-      user        => $user,
-      password    => $password,
+  if $host != $nexus::listen_address or $facts['nexus_running'] {
+    exec { "add-script-${script_name}":
+      command  => "curl -v -u ${user}:${password} --header \"Content-Type: application/json\" \"http://${host}:${port}/service/rest/v1/script/\" -d @${path}",
+      provider => 'shell',
     }
-  }
 
-  if $delete_after_run {
-    nexus::api::script::delete { "delete-${script_name}":
-      host        => $host,
-      port        => $port,
-      script_name => $script_name,
-      user        => $user,
-      password    => $password,
-      require     => Nexus::Api::Script::Run["run-${script_name}"],
+    if $run {
+      nexus::api::script::run { "run-${script_name}":
+        host        => $host,
+        port        => $port,
+        script_name => $script_name,
+        user        => $user,
+        password    => $password,
+      }
     }
+
+    if $delete_after_run {
+      nexus::api::script::delete { "delete-${script_name}":
+        host        => $host,
+        port        => $port,
+        script_name => $script_name,
+        user        => $user,
+        password    => $password,
+        require     => Nexus::Api::Script::Run["run-${script_name}"],
+      }
+    }
+  } else {
+    fail('Please, ensure that Nexus service is running before try to use its API.')
   }
 }

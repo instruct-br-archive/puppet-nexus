@@ -8,9 +8,13 @@ define nexus::api::script::delete (
   String $password    = '',
 ) {
 
-  exec { "delete-script-${script_name}":
-    command  => "curl -v -X DELETE -u ${user}:${password} \"http://${host}:${port}/service/rest/v1/script/${script_name}\"",
-    provider => 'shell',
+  if $host != $nexus::listen_address or $facts['nexus_running'] {
+    exec { "delete-script-${script_name}":
+      command  => "curl -v -X DELETE -u ${user}:${password} \"http://${host}:${port}/service/rest/v1/script/${script_name}\"",
+      provider => 'shell',
+    }
+  } else {
+    fail('Please, ensure that Nexus service is running before try to use its API.')
   }
 
 }
