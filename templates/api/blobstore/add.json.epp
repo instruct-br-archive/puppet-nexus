@@ -1,5 +1,5 @@
 {
   "name": "<%= $blobstore_name %>",
   "type": "groovy",
-  "content": "String blob_name = '<%= $blobstore_name %>'; String path = '<%= $blobstore_path %>'; blobStore.createFileBlobStore(blob_name, path);"
+  "content": "blobStore.createFileBlobStore('<%= $blobstore_name %>', '<%= $blobstore_path %>');"
 }

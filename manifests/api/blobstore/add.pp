@@ -20,13 +20,14 @@ define nexus::api::blobstore::add (
   }
 
   nexus::api::script::add { "add-blobstore-${name}-script":
-    path        => "/tmp/blobstore-${name}.json",
-    script_name => $name,
-    host        => $host,
-    port        => $port,
-    user        => $user,
-    password    => $password,
-    run         => true,
+    path             => "/tmp/blobstore-${name}.json",
+    script_name      => $name,
+    host             => $host,
+    port             => $port,
+    user             => $user,
+    password         => $password,
+    run              => true,
+    delete_after_run => true,
   }
 
 }
