@@ -83,4 +83,8 @@ class nexus::install {
       notify { 'OS not supported': }
     }
   }
+  
+  package { 'curl':
+    ensure => 'installed',
+  }
 }
