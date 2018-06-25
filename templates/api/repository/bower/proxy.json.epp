@@ -1,0 +1,5 @@
+{
+  "name": "<%= $repository_name %>",
+  "type": "groovy",
+  "content": "repository.createBowerProxy('<%= $repository_name %>', '<%= $remote_url %>', '<%= $blobstore_name %>', <%= $strict %>, <%= $rewrite_package_urls %>);"
+}
