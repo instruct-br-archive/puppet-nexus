@@ -1,0 +1,5 @@
+{
+  "name": "<%= $repository_name %>",
+  "type": "groovy",
+  "content": "repository.createPyPiHosted('<%= $repository_name %>', '<%= $blobstore_name %>', <%= $strict %>, org.sonatype.nexus.repository.storage.WritePolicy.<%= $write_policy %>);"
+}
