@@ -50,7 +50,7 @@ Via git
 
 #### Example in EL 7 with no SSL
 
-```
+```puppet
 class { 'nexus':
   http_listen_address => '192.168.250.80',
   http_port           => 8080,
@@ -59,11 +59,24 @@ class { 'nexus':
   release_version     => 1,
   revision            => 02,
 }
+
+nexus::api::blobstore::add { 'new_blobstore': }
+
+nexus::api::repository::npm::hosted { 'npm-hosted':
+  blobstore_name => 'new_blobstore',
+}
+nexus::api::repository::npm::proxy { 'npm-proxy':
+  blobstore_name => 'new_blobstore',
+}
+# The npm-group's blobstore will be 'default'.
+nexus::api::repository::npm::group { 'npm-group':
+  members => ['maven-proxy', 'maven-hosted'],
+}
 ```
 
 #### Example in EL 7 with SSL enabled
 
-```
+```puppet
 ## first generate a certificate
 ## puppet cert generate nexus
 
@@ -239,6 +252,266 @@ Type: String
 
 Java's desired distribution
 
+
+### Defined Types
+
+#### nexus::api::script::add
+
+Adds a new script using the Nexus API. It also let you execute the script right after adding, and delete after running.
+
+Parameters:
+
+#### `path``
+
+Type: String
+
+The path where the script is located.
+
+#### `script_name`
+
+Type: String
+
+The name of the script that will be add.
+
+#### `host`
+
+Type: String
+
+Host where the script will be uplodaded. Default to $nexus::listen_address (same address used to install Nexus).
+
+#### `port`
+
+Type: Integer
+
+Port of the host where Nexus is listening. Default to $nexus::http_port (same port used to install Nexus).
+
+#### `user`
+
+Type: String
+
+User to access the Nexus API. Default to 'admin' (default admin user).
+
+#### `password`
+
+Type: String
+
+Password of the user to access the Nexus API. Default to 'admin123' (default admin password).
+
+#### `run`
+
+Type: Boolean
+
+Whether to run the new script right after adding. Default to false.
+
+#### `delete_after_run`
+
+Type: Boolean
+
+To be used with the previous parameter. Whether to delete the new script right after running. Default to false.
+
+#### nexus::api::script::run
+
+Run an existing script using the Nexus API.
+
+Parameters:
+
+#### `script_name`
+
+Type: String
+
+The name of the script that will be executed.
+
+#### `host`
+
+Type: String
+
+Host where the script is and will be executed. Default to $nexus::listen_address (same address used to install Nexus).
+
+#### `port`
+
+Type: Integer
+
+Port that Nexus is listening on the host where the script is. Default to $nexus::http_port (same port used to install Nexus).
+
+#### `user`
+
+Type: String
+
+User to access the Nexus API. Default to 'admin' (default admin user).
+
+#### `password`
+
+Type: String
+
+Password of the user to access the Nexus API. Default to 'admin123' (default admin password).
+
+
+#### nexus::api::script::delete
+
+Delete a script using the Nexus API.
+
+Parameters:
+
+#### `script_name`
+
+Type: String
+
+The name of the script that will be deleted.
+
+#### `host`
+
+Type: String
+
+Host where the script is and will be deleted. Default to $nexus::listen_address (same address used to install Nexus).
+
+#### `port`
+
+Type: Integer
+
+Port that Nexus is listening on the host where the script is. Default to $nexus::http_port (same port used to install Nexus).
+
+#### `user`
+
+Type: String
+
+User to access the Nexus API. Default to 'admin' (default admin user).
+
+#### `password`
+
+Type: String
+
+Password of the user to access the Nexus API. Default to 'admin123' (default admin password).
+
+#### nexus::api::blobstore::add
+
+Defined type to create a new File BlobStore. Since it uses the defined type `nexus::api::script::add`, it has the parameters: `host`, `port`, `user` and `password`. It also has the following params:
+
+The defined type's title is the name of the BlobStore.
+
+#### `path`
+
+Type: String
+
+Path where the BlobStore will be stored. Default to `"${nexus::work_dir}/blobs"` (directory blobs inside the sonatype-work path defined on the Nexus installation).
+
+#### nexus::api::repository::_format_::_type_
+
+This module contains several defined types that allows you to create new repositories hosted, proxy and group (according to the support of each format). They also use the parameters `host`, `port`, `user` and `password`, and most of them have the following common parameters (also depending on the support of each repository format):
+
+The defined type's title is the name of the Repository.
+
+- For Group repositories:
+
+#### `members`
+
+Type: Array[String]
+
+Members of the group repository. It doesn't validate if the repository is being created via Puppet, since you might want to use an already existing repository.
+
+#### `blobstore_name`
+
+Type: String
+
+Name of the BlobStore where the repository's components and assets will be stored. Default to 'default' (default blobstore created on Nexus installation).
+
+- For Proxy repositories:
+
+#### `remote_url`
+
+Type: String
+
+URL for the Remote Storage. Default to the default registry of each format, except for the Raw repository, that has as default an empty string.
+
+#### `strict`
+
+Type: Boolean
+
+Whether or not the repository should enforce strict content types. Default to true.
+
+#### `blobstore_name`
+
+Type: String
+
+Name of the BlobStore where the repository's components and assets will be stored. Default to 'default' (default blobstore created on Nexus installation).
+
+- For Hosted repositories:
+
+#### `write_policy`
+
+Type: Enum['ALLOW', 'ALLOW_ONCE', 'DENY']
+
+Repository write policy. Accepts the values 'ALLOW' (Allow redeploy), 'ALLOW_ONCE' (Disable redeploy) and 'DENY' (Read-only). Default to 'ALLOW'.
+
+#### `strict`
+
+Type: Boolean
+
+Whether or not the repository should enforce strict content types. Default to true.
+
+#### `blobstore_name`
+
+Type: String
+
+Name of the BlobStore where the repository's components and assets will be stored. Default to 'default' (default blobstore created on Nexus installation).
+
+#### List of all available repositories defined types and its additional parameters:
+
+#### api::repository::bower::group
+#### api::repository::bower::hosted
+#### api::repository::bower::proxy
+`rewrite_package_urls` - Type: Boolean - Whether to force Bower to retrieve packages through the proxy repository or not. Default to true.
+
+#### api::repository::docker::group
+`http_port`  - Type: String - Create an HTTP connector to the specified port. Default to 'null'.
+`https_port` - Type: String - Create an HTTPS connector to the specified port. Default to 'null'.
+`enable_v1`  - Type: Boolean - Allow clients to use the V1 API to interact with this Repository. Default to false.
+#### api::repository::docker::hosted
+`http_port`  - Type: String - Create an HTTP connector to the specified port. Default to 'null'.
+`https_port` - Type: String - Create an HTTPS connector to the specified port. Default to 'null'.
+`enable_v1`  - Type: Boolean - Allow clients to use the V1 API to interact with this Repository. Default to false.
+#### api::repository::docker::proxy
+`http_port`  - Type: String - Create an HTTP connector to the specified port. Default to 'null'.
+`https_port` - Type: String - Create an HTTPS connector to the specified port. Default to 'null'.
+`enable_v1`  - Type: Boolean - Allow clients to use the V1 API to interact with this Repository. Default to false.
+`index`      - Type: Enum['REGISTRY', 'HUB', 'CUSTOM'] - Docker Index. Accepts values 'REGISTRY' (Use proxy registry), 'HUB' (Use Docker Hub), 'INDEX' (Custom Index). Default to 'REGISTRY'.
+`custom_url` - Type: String - Location of Docker index (if the `index` parameter value is 'INDEX'). Default to an empty string.
+
+#### api::repository::gitlfs::hosted
+
+#### api::repository::maven::group
+#### api::repository::maven::hosted
+`version_policy` - Type: Enum['RELEASE', 'SNAPSHOT', 'MIXED'] - Version policy. Accepts values 'RELEASE', 'SNAPSHOT' and 'MIXED'.Default to 'RELEASE'.
+`layout_policy`  - Type: Enum['STRICT', 'PERMISSIVE'] - Layout policy. Accepts values 'STRICT' and 'PERMISSIVE'. Default to 'STRICT'.
+#### api::repository::maven::proxy
+`version_policy` - Type: Enum['RELEASE', 'SNAPSHOT', 'MIXED'] - Version policy. Accepts values 'RELEASE', 'SNAPSHOT' and 'MIXED'.Default to 'RELEASE'.
+`layout_policy`  - Type: Enum['STRICT', 'PERMISSIVE'] - Layout policy. Accepts values 'STRICT' and 'PERMISSIVE'. Default to 'STRICT'.
+
+#### api::repository::npm::group
+#### api::repository::npm::hosted
+#### api::repository::npm::proxy
+
+#### api::repository::nuget::group
+#### api::repository::nuget::hosted
+#### api::repository::nuget::proxy
+
+#### api::repository::pypi::group
+#### api::repository::pypi::hosted
+#### api::repository::pypi::proxy
+
+#### api::repository::raw::group
+#### api::repository::raw::hosted
+#### api::repository::raw::proxy
+
+#### api::repository::rubygems::group
+#### api::repository::rubygems::hosted
+#### api::repository::rubygems::proxy
+
+#### api::repository::yum::hosted
+`depth` - Type: Integer[0, 5] - Repository depth. Default to 0.
+#### api::repository::yum::proxy
+
+** Note that you can declare create a repository of any type just passing the name as the title of the resource (and user and password if they're not the default anymore). **
+
 ### Hiera Keys
 
 #### Common
@@ -318,4 +591,4 @@ This module was developed using
 
 ### Author/Contributors
 
-Igor Oliveira
+Igor Oliveira (igor at instruct dot com dot br)
