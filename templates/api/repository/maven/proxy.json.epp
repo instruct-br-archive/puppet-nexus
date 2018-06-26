@@ -1,0 +1,5 @@
+{
+  "name": "<%= $repository_name %>",
+  "type": "groovy",
+  "content": "repository.createMavenProxy('<%= $repository_name %>', '<%= $remote_url %>', '<%= $blobstore_name %>', <%= $strict %>, org.sonatype.nexus.repository.maven.VersionPolicy.<%= $version_policy %>, org.sonatype.nexus.repository.maven.LayoutPolicy.<%= $layout_policy %>);"
+}

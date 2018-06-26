@@ -1,27 +1,34 @@
 # == Define: define_name
 #
 define nexus::api::repository::maven::group (
-  String $name                                         = '',
-  Array[String] $members                               = '',
-  String $blobstore_name                               = 'Default',
+  Array[String] $members                               = [],
+  String $blobstore_name                               = 'default',
   String $host                                         = $nexus::listen_address,
-  String $port                                         = $nexus::http_port,
+  Integer $port                                        = $nexus::http_port,
   String $user                                         = 'admin',
   String $password                                     = 'admin123',
 ) {
 
-  file { '/tmp/${name}.json':
-
+  file { "/tmp/repository-maven-${name}.json":
+    ensure  => present,
+    owner   => $nexus::user,
+    group   => $nexus::group,
+    content => epp('nexus/api/repository/maven/group.json.epp', {
+      repository_name => $name,
+      blobstore_name  => $blobstore_name,
+      members         => $members,
+    }),
   }
 
-  nexus::api::script::add {
-    path        => "/tmp/${name}.json",
-    script_name => $name,
-    host        => $host,
-    port        => $port,
-    user        => $user,
-    password    => $password,
-    run         => true,
+  nexus::api::script::add { "add-repository-maven-${name}-script":
+    path             => "/tmp/repository-maven-${name}.json",
+    script_name      => $name,
+    host             => $host,
+    port             => $port,
+    user             => $user,
+    password         => $password,
+    run              => true,
+    delete_after_run => true,
   }
 
 }

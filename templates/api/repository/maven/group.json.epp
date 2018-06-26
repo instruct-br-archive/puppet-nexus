@@ -1,0 +1,5 @@
+{
+  "name": "<%= $repository_name %>",
+  "type": "groovy",
+  "content": "List<String> members = new ArrayList<String>(); <% $members.each |$member| { %> members.add('<%= $member %>'); <% } %> repository.createMavenGroup('<%= $repository_name %>', members, '<%= $blobstore_name %>');"
+}

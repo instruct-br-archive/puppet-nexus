@@ -1,0 +1,5 @@
+{
+  "name": "<%= $repository_name %>",
+  "type": "groovy",
+  "content": "repository.createMavenHosted('<%= $repository_name %>', '<%= $blobstore_name %>', <%= $strict %>, org.sonatype.nexus.repository.maven.VersionPolicy.<%= $version_policy %>, org.sonatype.nexus.repository.storage.WritePolicy.<%= $write_policy %>, org.sonatype.nexus.repository.maven.LayoutPolicy.<%= $layout_policy %>);"
+}
