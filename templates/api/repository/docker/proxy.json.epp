@@ -1,0 +1,5 @@
+{
+  "name": "<%= $repository_name %>",
+  "type": "groovy",
+  "content": "repository.createDockerProxy('<%= $repository_name %>', '<%= $remote_url %>', '<%= $index %>', '<%= $custom_url %>', <%= $http_port %>, <%= $https_port %>, '<%= $blobstore_name %>', <%= $strict %>, <%= $enable_v1 %>);"
+}

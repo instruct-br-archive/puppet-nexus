@@ -1,0 +1,5 @@
+{
+  "name": "<%= $repository_name %>",
+  "type": "groovy",
+  "content": "repository.createDockerHosted('<%= $repository_name %>', <%= $http_port %>, <%= $https_port %>, '<%= $blobstore_name %>', <%= $enable_v1 %>, <%= $strict %>, org.sonatype.nexus.repository.storage.WritePolicy.<%= $write_policy %>);"
+}

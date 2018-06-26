@@ -1,0 +1,5 @@
+{
+  "name": "<%= $repository_name %>",
+  "type": "groovy",
+  "content": "List<String> members = new ArrayList<String>(); <% $members.each |$member| { %> members.add('<%= $member %>'); <% } %> repository.createDockerGroup('<%= $repository_name %>', <%= $http_port %>, <%= $https_port %>, members, <%= $enable_v1 %>, '<%= $blobstore_name %>');"
+}
