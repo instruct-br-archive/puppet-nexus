@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::raw::proxy
 #
 define nexus::api::repository::raw::proxy (
   String $remote_url     = '',

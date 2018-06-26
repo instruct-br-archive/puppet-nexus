@@ -1,4 +1,5 @@
-# == Define: define_name
+# == Define: nexus::api::script::add
+#
 define nexus::api::script::add (
   String $path = '',
   String $script_name = '',

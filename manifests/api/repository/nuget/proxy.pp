@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::nuget::proxy
 #
 define nexus::api::repository::nuget::proxy (
   String $remote_url     = 'http://www.nuget.org/api/v2/',

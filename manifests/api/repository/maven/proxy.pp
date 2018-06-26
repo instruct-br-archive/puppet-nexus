@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::maven::proxy
 #
 define nexus::api::repository::maven::proxy (
   String $remote_url                                   = 'https://repo1.maven.org/maven2/',

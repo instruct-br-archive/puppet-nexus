@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::docker::group
 #
 define nexus::api::repository::docker::group (
   Array[String] $members = '',

@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::docker::hosted
 #
 define nexus::api::repository::docker::hosted (
   String $blobstore_name        = 'default',

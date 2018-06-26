@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::rubygems::proxy
 #
 define nexus::api::repository::rubygems::proxy (
   String $remote_url     = 'https://rubygems.org',

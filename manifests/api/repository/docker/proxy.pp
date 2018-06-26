@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::docker::proxy
 #
 define nexus::api::repository::docker::proxy (
   String $remote_url             = 'https://registry-1.docker.io',

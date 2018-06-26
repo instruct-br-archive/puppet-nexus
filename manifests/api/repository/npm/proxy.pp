@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::npm::proxy
 #
 define nexus::api::repository::npm::proxy (
   String $remote_url     = 'https://registry.npmjs.org',

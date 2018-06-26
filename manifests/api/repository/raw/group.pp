@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::raw::group
 #
 define nexus::api::repository::raw::group (
   Array[String] $members = '',

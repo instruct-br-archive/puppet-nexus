@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::pypi::hosted
 #
 define nexus::api::repository::pypi::hosted (
   String $blobstore_name = 'default',

@@ -1,4 +1,4 @@
-# == Class: class_name
+# == Define: nexus::api::script::run
 #
 define nexus::api::script::run (
   String $host        = $nexus::listen_address,

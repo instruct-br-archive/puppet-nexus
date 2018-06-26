@@ -1,4 +1,4 @@
-# == Class: class_name
+# == Define: nexus::api::script::delete
 #
 define nexus::api::script::delete (
   String $host        = $nexus::listen_address,

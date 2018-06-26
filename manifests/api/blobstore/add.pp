@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::blobstore::add
 #
 define nexus::api::blobstore::add (
   String $path     = "${nexus::work_dir}/blobs",

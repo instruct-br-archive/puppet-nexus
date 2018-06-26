@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::rubygems::group
 #
 define nexus::api::repository::rubygems::group (
   Array[String] $members = '',

@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::pypi::group
 #
 define nexus::api::repository::pypi::group (
   Array[String] $members = '',

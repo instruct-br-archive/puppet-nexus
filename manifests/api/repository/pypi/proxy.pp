@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::pypi::proxy
 #
 define nexus::api::repository::pypi::proxy (
   String $remote_url     = 'https://pypi.org/',

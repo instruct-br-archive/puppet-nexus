@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::yum::proxy
 #
 define nexus::api::repository::yum::proxy (
   String $remote_url     = 'http://mirror.centos.org/centos/',

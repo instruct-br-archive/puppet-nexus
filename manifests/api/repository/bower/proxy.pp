@@ -1,4 +1,4 @@
-# == Define: define_name
+# == Define: nexus::api::repository::bower::proxy
 #
 define nexus::api::repository::bower::proxy (
   String $remote_url     = 'https://registry.bower.io',
