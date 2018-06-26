@@ -19,6 +19,8 @@ The default version is the 3.9.0-01.
 
 This module can also configure SSL for Nexus.
 
+** Note: this module was designed to install and manage Nexus Repository OSS >= 3.1, if you try to use a previous version, it may not work well. It also might not work well if you already have a Nexus installation. **
+
 ## Supported Platforms
 
 This module was tested under these platforms
