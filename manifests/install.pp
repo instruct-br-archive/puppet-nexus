@@ -5,6 +5,8 @@ class nexus::install {
     fail("This module supports version 3.1 or greater, found: \'${nexus::major_version}.${nexus::minor_version}\'")
   }
 
+  include systemd::systemctl::daemon_reload
+
   group { $nexus::group:
     ensure => present,
   }
@@ -20,15 +22,11 @@ class nexus::install {
   File {
     owner => $nexus::user,
     group => $nexus::group,
-  }
-
-  file { $nexus::temp_path:
-    ensure => directory,
+    mode  => '0644',
   }
 
   file { $nexus::data_path:
     ensure => directory,
-    mode   => '0755',
   }
 
   archive { "${nexus::temp_path}/nexus-${nexus::os_ext}":
@@ -38,12 +36,10 @@ class nexus::install {
     source        => "https://download.sonatype.com/nexus/3/${nexus::version}-${nexus::os_ext}",
     checksum_url  => "https://download.sonatype.com/nexus/3/${nexus::version}-${nexus::os_ext}.sha1",
     checksum_type => 'sha1',
+    user          => 'nexus',
+    group         => 'nexus',
+    creates       => $nexus::app_path,
     cleanup       => true,
-  }
-
-  file { $nexus::app_path:
-    ensure  => directory,
-    recurse => true,
   }
 
   file { $nexus::work_dir:
@@ -55,12 +51,12 @@ class nexus::install {
   case $facts['os']['family'] {
     'Debian', 'RedHat': {
       file { "/etc/systemd/system/${nexus::service_name}.service":
-        mode    => '0644',
         content => epp('nexus/nexus.systemd.epp', {
           path  => $nexus::app_path,
           user  => $nexus::user,
           group => $nexus::group
         }),
+        notify  => Class['systemd::systemctl::daemon_reload'],
       }
     }
     # Needs to be tested

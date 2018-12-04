@@ -1,12 +1,34 @@
 {
-  "name": "instructbr-nexus",
+  "name": "instruct-nexus",
   "version": "1.0.0",
-  "author": "instructbr",
-  "summary": "Puppet module to install Sonatype Nexus 3",
+  "author": "Instruct",
+  "summary": "Puppet module to install Sonatype Nexus Repository 3",
   "license": "Apache-2.0",
   "source": "https://github.com/instruct-br/puppet-nexus",
   "project_page": "https://github.com/instruct-br/puppet-nexus",
   "issues_url": "https://github.com/instruct-br/puppet-nexus/issues",
+  "dependencies": [
+    {
+      "name":"puppetlabs/stdlib",
+      "version_requirement": ">= 5.1.0 < 6.0.0"
+    },
+    {
+      "name":"puppetlabs/java",
+      "version_requirement": ">= 3.2.0 < 4.0.0"
+    },
+    {
+      "name":"puppetlabs/java_ks",
+      "version_requirement": ">= 2.3.0 < 3.0.0"
+    },
+    {
+      "name":"puppet/archive",
+      "version_requirement": ">= 3.2.1 < 4.0.0"
+    },
+    {
+      "name":"camptocamp/systemd",
+      "version_requirement": ">= 2.1.0 < 3.0.0"
+    }
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "Debian",
@@ -25,20 +47,6 @@
     {
       "name": "puppet",
       "version_requirement": ">= 4.10.0 < 6.0.0"
-    }
-  ],
-  "dependencies": [
-    {
-      "name":"puppetlabs/stdlib"
-    },
-    {
-      "name":"puppetlabs/java"
-    },
-    {
-      "name":"puppetlabs/java_ks"
-    },
-    {
-      "name":"puppet/archive"
     }
   ],
   "pdk-version": "1.2.1",
