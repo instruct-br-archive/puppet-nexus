@@ -2,7 +2,7 @@
 class nexus::config {
 
   $config_dir  = "${nexus::work_dir}/nexus3/etc"
-  $config_file = "${nexus::work_dir}/nexus3/etc/nexus.properties"
+  $config_file = "${config_dir}/nexus.properties"
 
   file { $config_dir:
     ensure => directory,
