@@ -8,7 +8,7 @@ class nexus::config {
     ensure => directory,
     owner  => $nexus::user,
     group  => $nexus::group,
-    mode   => '0644',
+    mode   => '0755',
   }
 
   file { "${nexus::app_path}/bin/nexus.vmoptions":
